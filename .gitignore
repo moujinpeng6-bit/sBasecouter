@@ -5,3 +5,5 @@ build/
 dist/
 runs/
 *.h5ad
+.nextflow*
+/work/

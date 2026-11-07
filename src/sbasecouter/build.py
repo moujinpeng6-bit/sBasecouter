@@ -25,14 +25,17 @@ def sha256(path):
 def checked_files(row, report_path):
     assets = row["files"]
     needed = {"image", "cells", "experiment"} if row["platform"] == "Xenium" else {"image", "positions", "scalefactors"}
-    needed |= {"h5"} if "h5" in assets else {"matrix", "features", "barcodes"}
+    if "h5" in assets or row.get("status") == "recount_ready_for_validation":
+        needed.add("h5")
+    else:
+        needed.update(("matrix", "features", "barcodes"))
     paths, provenance = {}, {}
     for role in sorted(needed):
         asset = assets.get(role)
         if role == "image" and not asset and row["platform"] != "Xenium":
             asset = assets.get("image_hires")
         if not asset:
-            raise ValueError(f"Verified report has no {role} asset")
+            raise ValueError(f"Report has no {role} asset")
         path = (report_path.parent / asset["path"]).resolve(strict=True)
         digest = sha256(path)
         if digest != asset.get("sha256"):
@@ -73,6 +76,8 @@ def write_record(row, request, report_path, report_sha, destination, normalize_t
     provenance = {"sample":sample,"search_request":request,"input_files":inputs,
                   "report_sha256":report_sha,"matrix_kind":"publisher_processed_counts",
                   "builder_version":__version__}
+    if row["status"] == "recount_ready_for_validation":
+        provenance.update(matrix_kind="local_recount", recount=row["recount"])
     frame["slice_id"] = row["sample_id"]
     data.uns["spatial_reference"] = frame
     data.uns["source_record_json"] = json.dumps(provenance, ensure_ascii=False)
@@ -92,8 +97,9 @@ def write_record(row, request, report_path, report_sha, destination, normalize_t
             "spatial_reference":frame,"source_record":provenance}
 
 
-def eligibility(row, request):
-    if row.get("status") != "correspondence_passed":
+def eligibility(row, request, *, local_recount=False):
+    required = "recount_ready_for_validation" if local_recount else "correspondence_passed"
+    if row.get("status") != required:
         return "source_spatial_validation_not_passed"
     if row.get("platform") not in SUPPORTED:
         return "platform_not_supported"
@@ -105,7 +111,7 @@ def eligibility(row, request):
     return None
 
 
-def build(reports, out, *, sample_ids=(), normalize_total=None):
+def build(reports, out, *, sample_ids=(), normalize_total=None, local_recount=False):
     if normalize_total is not None and (not math.isfinite(normalize_total) or normalize_total <= 0):
         raise ValueError("Normalization target must be positive and finite")
     wanted = set(sample_ids)
@@ -140,7 +146,7 @@ def build(reports, out, *, sample_ids=(), normalize_total=None):
     save()
     for sample, (row, request, path, report_sha) in samples.items():
         result = {key:row[key] for key in ("sample_id","source_sample_id","study_id","platform","source_url") if key in row}
-        reason = eligibility(row, request)
+        reason = eligibility(row, request, local_recount=local_recount)
         if reason:
             result.update(status="skipped", reason=reason)
         else:

@@ -11,7 +11,7 @@ SRAgent-spatial 搜索、筛选、配文件、验证对应
 
 ## 和论文的对应
 
-论文里 SRAgent 负责发现数据和整理元数据。scRecounter 接收原始测序读段，用 STARsolo 对齐参考基因组并统一计数。scBaseCount 把整理后的数据与来源信息发布成仓库。本项目 v0.1 从发布者已经处理好的计数起步，先建立空间数据的统一格式和可追溯记录。原始读段重处理、参考基因组版本统一、定期增量更新属于完整版本的后续工作。[Cell 论文](https://doi.org/10.1016/j.cell.2026.08.025) · [原版 scRecounter](https://github.com/ArcInstitute/scRecounter)
+论文里 SRAgent 负责发现数据和整理元数据。scRecounter 接收原始测序读段，用 STARsolo 对齐参考基因组并统一计数。scBaseCount 把整理后的数据与来源信息发布成仓库。本项目 v0.1 从发布者已经处理好的计数起步，v0.2 给细胞级数据增加空间邻域表达。v0.3 新增 `recount` 和 Nextflow 批量入口，调用空间平台的计数工具，再复用空间对应检查和 AnnData 输出。[原始数据重处理](docs/raw_recount.md) · [Cell 论文](https://doi.org/10.1016/j.cell.2026.08.025) · [原版 scRecounter](https://github.com/ArcInstitute/scRecounter)
 
 **标准化和归一化各管一件事。** 标准化统一文件结构、条码对齐、坐标单位、质量统计和来源记录。归一化是可选的数值变换。基础版一直把发布者提供的计数保存到 `X`，方便复查和重新选择分析方法。
 
