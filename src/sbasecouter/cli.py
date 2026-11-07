@@ -6,17 +6,34 @@ from pathlib import Path
 import sys
 
 from .build import build
+from .context import build_context
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="sbasecouter", description="Build verified human spatial datasets")
-    command = parser.add_subparsers(dest="command", required=True).add_parser("build")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    command = subparsers.add_parser("build")
     command.add_argument("--report", type=Path, required=True, action="append", help="SRAgent-spatial research batch.json")
     command.add_argument("--out", type=Path, required=True, help="New output directory")
     command.add_argument("--sample-id", action="append", default=[], help="Exact report sample ID. Repeat to select several")
     command.add_argument("--normalize-total", type=float, help="Also store a log1p library-size layer, for example 10000")
+    context = subparsers.add_parser("context", help="Add a cell neighborhood and derived expression layers")
+    context.add_argument("--input", type=Path, required=True)
+    context.add_argument("--out", type=Path, required=True)
+    context.add_argument("--cell-types", type=Path, help="Optional same-slice slice_id,barcode,cell_type CSV")
+    context.add_argument("--cell-types-source", help="Reference for the supplied annotation table, saved in the output")
+    context.add_argument("--neighbors", type=int, default=8)
+    context.add_argument("--radius-um", type=float, default=50)
+    context.add_argument("--alpha", type=float, default=0.25, help="Neighbor share for cells with measured RNA")
+    context.add_argument("--same-type-weight", type=float, default=2.0)
     args = parser.parse_args(argv)
     try:
+        if args.command == "context":
+            result = build_context(args.input, args.out, neighbors=args.neighbors, radius=args.radius_um,
+                                   alpha=args.alpha, same_type_weight=args.same_type_weight, label_file=args.cell_types,
+                                   label_source=args.cell_types_source)
+            print(json.dumps(result))
+            return 0
         catalog = build(args.report,args.out,sample_ids=args.sample_id,normalize_total=args.normalize_total)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print(str(exc), file=sys.stderr)

@@ -1,0 +1,71 @@
+{
+  "builder_version": "0.2.0",
+  "sample_id": "tenx:Xenium:08_Pancreas--51f7db94bb8f",
+  "source_url": "https://www.10xgenomics.com/datasets/pancreatic-cancer-with-xenium-human-multi-tissue-and-cancer-panel-1-standard",
+  "source_matrix_sha256": "94b239ae39672a707fdd846a1b366673286f616d66fc58f99419ff7014e93e57",
+  "annotations": {
+    "study": "https://doi.org/10.6019/S-BIAD2146",
+    "slide": "pancreatic_s0",
+    "group_field": "cells_final_label_group",
+    "annotation_parquet_sha256": "0498e9913b857022170c698faf3ab9b46862f514b98471f76feddf0264913ffa",
+    "direct_identifier_overlaps_not_used": 11,
+    "coordinates": "spatial",
+    "max_error": 3.2155493553843715e-13,
+    "tolerance": 0.0001,
+    "matching_unique_coordinates_rna_and_total_counts": 190965,
+    "type_counts": {
+      "Epithelial": 84145,
+      "Myeloid": 50624,
+      "Fibroblast_Myofibroblast": 21228,
+      "Specialized": 11224,
+      "Blood_vessel": 10380,
+      "T_NK": 10328,
+      "B_Plasma": 2365,
+      "unknown": 671
+    },
+    "method": "Unique 1:1 native micrometre centroid within tolerance, plus exact per-cell RNA and all-feature totals. Never paired by row order or apparent ID overlaps. Other is unknown."
+  },
+  "parameters": {
+    "k": 8.0,
+    "radius_um": 50.0,
+    "alpha": 0.25,
+    "same_type_weight": 2.0
+  },
+  "observations": 190965,
+  "features": 538,
+  "rna_features": 474,
+  "non_rna_features": 64,
+  "cells_with_known_labels": 190294,
+  "cells_with_neighbors": 190952,
+  "cells_without_neighbors": 13,
+  "cells_with_rna_neighbors": 190952,
+  "neighbor_only_estimates": 4,
+  "cells_where_labels_change_context_from_unweighted_baseline": 150895,
+  "max_neighbor_distance_um": 49.99679051354152,
+  "max_neighbor_count": 8,
+  "raw_count_nonzero_entries": 11316792,
+  "context_nonzero_entries": 34136956,
+  "checks": {
+    "original_count_matrix_equal": true,
+    "barcodes_and_features_equal": true,
+    "centroids_and_image_coordinates_equal": true,
+    "context_ids_unique": true,
+    "no_self_edges": true,
+    "neighbor_count_and_distance_within_limits": true,
+    "neighbor_type_fractions_sum_to_one_for_nonisolated": true,
+    "rna_weights_sum_to_one_for_eligible": true,
+    "finite_expression_and_no_controls_in_derived_layer": true
+  },
+  "held_out_geometry_baseline": {
+    "seed": 20261108,
+    "held_out_cells": 5000,
+    "reference_cells": 185961,
+    "held_out_cells_within_radius": 5000,
+    "gene_count": 474,
+    "reference_only_neighbor_mae": 21.03083284575101,
+    "reference_global_mean_mae": 24.470050811767578,
+    "unit": "linear RNA counts per 10000",
+    "scope": "within this one slice; no cell type labels were used in this check because labels can depend on the target cell expression"
+  },
+  "scope": "A single human Xenium slice. Published counts and gene IDs were preserved. Spatial context is a derived estimate. No raw-read remapping or trained model was used."
+}

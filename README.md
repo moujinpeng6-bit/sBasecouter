@@ -1,11 +1,11 @@
-# sBasecouter · Spatial v0.1
+# scRecouter-spatial
 
 把 SRAgent-spatial 验证过的**人类空间转录组**整理成可重用的 AnnData 数据集。一个输出文件对应一张切片和一种观测粒度，记录表达、坐标、图像来源和处理参数。健康、患病、癌旁、混合或未知状态沿用来源证据。
 
 ```text
 SRAgent-spatial 搜索、筛选、配文件、验证对应
   → batch.json 指向同一切片的表达、坐标、比例和图像
-  → sBasecouter 核对文件指纹并按 ID 对齐
+  → scRecouter-spatial 核对文件指纹并按 ID 对齐
   → 每切片一个 .h5ad + 逐样本 catalog.json
 ```
 
@@ -49,6 +49,8 @@ python -m venv .venv
 只有通过来源空间检查并带有完整表达的切片才进入正式输出。只有矩阵头的样本会以 `full_count_matrix_required` 记录。每张切片使用自己的参考系，跨切片的坐标各自保留。[Visium 坐标约定](https://www.10xgenomics.com/support/cn/software/space-ranger/2.1/tutorials/outputs/spatial-outputs) · [Xenium 坐标约定](https://cf.10xgenomics.com/supp/xenium/xenium_documentation.html) · [AnnData 格式](https://anndata.readthedocs.io/en/stable/fileformat-prose.html)
 
 ## 验收
+
+v0.2 可对细胞级切片计算邻居图、细胞类型比例、邻居表达和空间上下文表达。人胰腺癌 Xenium 的类型标注与原条码逐个核对后已实测。命令及计算方式见 [空间上下文](docs/spatial_context.md)，核对结果见 [v0.2 验收统计](examples/context_acceptance.json)。
 
 | 已重读的真实切片 | 数据量 | 验收范围 |
 | --- | --- | --- |
