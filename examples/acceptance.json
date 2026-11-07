@@ -1,0 +1,99 @@
+{
+  "scope": "real human reports; numerical normalization stored separately; values compared after re-opening each h5ad",
+  "totals": {
+    "built": 3,
+    "failed": 0,
+    "skipped": 1
+  },
+  "samples": [
+    {
+      "sample_id": "biostudies:Visium:S-BSST1410--6ee840650637",
+      "platform": "Visium",
+      "status": "built",
+      "observations": 4034,
+      "features": 36601,
+      "gene_expression_features": 36601,
+      "nonzero_counts": 8180705,
+      "source_url": "https://www.ebi.ac.uk/biostudies/studies/S-BSST1410",
+      "counts_exactly_match_input": true,
+      "positions_match_platform_scaling": true,
+      "observation_unit": "spot",
+      "native_unit": "full_resolution_image_pixel",
+      "publications": [
+        {
+          "id": "10.1101/2023.12.21.572330",
+          "url": "https://www.biorxiv.org/content/10.1101/2023.12.21.572330v1",
+          "field": "BioStudies study publication link"
+        }
+      ],
+      "reported_sample_state": "unknown",
+      "normalization_rows_checked": 1000
+    },
+    {
+      "sample_id": "biostudies:Visium:S-BSST1410--9942bf0a017c",
+      "platform": "Visium",
+      "status": "built",
+      "observations": 4882,
+      "features": 36601,
+      "gene_expression_features": 36601,
+      "nonzero_counts": 10281590,
+      "source_url": "https://www.ebi.ac.uk/biostudies/studies/S-BSST1410",
+      "counts_exactly_match_input": true,
+      "positions_match_platform_scaling": true,
+      "observation_unit": "spot",
+      "native_unit": "full_resolution_image_pixel",
+      "publications": [
+        {
+          "id": "10.1101/2023.12.21.572330",
+          "url": "https://www.biorxiv.org/content/10.1101/2023.12.21.572330v1",
+          "field": "BioStudies study publication link"
+        }
+      ],
+      "reported_sample_state": "unknown",
+      "normalization_rows_checked": 1000
+    },
+    {
+      "sample_id": "tenx:Xenium:08_Pancreas--51f7db94bb8f",
+      "platform": "Xenium",
+      "status": "built",
+      "observations": 190965,
+      "features": 538,
+      "gene_expression_features": 474,
+      "nonzero_counts": 11316792,
+      "source_url": "https://www.10xgenomics.com/datasets/pancreatic-cancer-with-xenium-human-multi-tissue-and-cancer-panel-1-standard",
+      "counts_exactly_match_input": true,
+      "positions_match_platform_scaling": true,
+      "observation_unit": "cell",
+      "native_unit": "micrometre",
+      "publications": [],
+      "reported_sample_state": "tumor",
+      "normalization_rows_checked": 1000
+    },
+    {
+      "sample_id": "tenx:Visium HD:visium-hd-cytassist-6p5mm-human-heart--06669997a8ab",
+      "platform": "Visium HD",
+      "status": "skipped",
+      "reason": "full_count_matrix_required",
+      "source_url": "https://www.10xgenomics.com/datasets/visium-hd-cytassist-6p5mm-human-heart"
+    }
+  ],
+  "full_visium_hd_followup": {
+    "sample_id": "tenx:Visium HD:visium-hd-cytassist-6p5mm-human-heart--06669997a8ab",
+    "platform": "Visium HD",
+    "status": "built",
+    "observations": 10615406,
+    "features": 18085,
+    "gene_expression_features": 18085,
+    "nonzero_counts": 43776546,
+    "source_url": "https://www.10xgenomics.com/datasets/visium-hd-cytassist-6p5mm-human-heart",
+    "bin_um": 2,
+    "observation_unit": "bin",
+    "native_unit": "full_resolution_image_pixel",
+    "bytes": 954007236,
+    "full_input_matrix_sha256": "e6113fdbaaeeb9539e7085feb1aa39acd6c31880754ce660ae202b314955e236",
+    "new_archive_network_bytes": 0,
+    "reopened_h5ad": true,
+    "positions_match_platform_scaling_on_sample": true
+  },
+  "total_real_slices_built": 4
+}
