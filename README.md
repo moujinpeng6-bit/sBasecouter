@@ -62,6 +62,8 @@ v0.2 可对细胞级切片计算邻居图、细胞类型比例、邻居表达和
 
 心脏原搜索报告的矩阵头被正确跳过，补入同一发布归档的完整矩阵后才生成结果。验收记录只包含公开来源与统计。[验收详情](examples/acceptance.json)
 
+同一张心脏切片的原生 8 µm 和 16 µm 也已分别核对完整过滤计数、条码、坐标、比例和低分辨率组织图像，并生成可逐项核对的空间表达层。两个分辨率共用同一张发布的切片图像，各自使用对应的坐标表。[8 µm、16 µm 与 FASTQ 验收](examples/heart_native_bins_acceptance.json) · [Linux 重计数准备](docs/heart_linux_recount.md)
+
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```

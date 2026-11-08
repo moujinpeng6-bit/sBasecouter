@@ -1,0 +1,204 @@
+{
+  "source_url": "https://www.10xgenomics.com/datasets/visium-hd-cytassist-6p5mm-human-heart",
+  "archive_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz",
+  "archive_etag": "\"ef134d138e6f4143c3df8698cff88a18-725\"",
+  "scope": "publisher_processed_counts",
+  "bins": [
+    {
+      "bin_um": 8,
+      "observations": 666027,
+      "features": 18085,
+      "rna_features": 18085,
+      "count_nonzeros": 36178217,
+      "coordinates_checked": 666027,
+      "image_size": [
+        478,
+        600
+      ],
+      "image_scale": 0.0122202085,
+      "checks": {
+        "counts_barcodes_features_coordinates_unchanged": true,
+        "observations_with_neighbors": 666027,
+        "maximum_neighbor_distance_um": 16.0,
+        "context_nonzeros": 147842449
+      },
+      "matrix_sha256": "ff6d17bcb355671fcd4ea928ea45309beb4d72823db4bf49989e24993c97cb78",
+      "context_sha256": "edf845ae75cafe03887a0f01e3adae6456985f3c08ddb070a9a88ca8adc31ff4",
+      "assets": {
+        "h5": {
+          "bytes": 62127510,
+          "sha256": "35809cab2fea06e621267f72e79eef21e11f52b990b0030a3f121cd0af35ee28",
+          "member": "binned_outputs/square_008um/filtered_feature_bc_matrix.h5",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        },
+        "scalefactors": {
+          "bytes": 299,
+          "sha256": "0b12f1d58e5aea5f6d21826e2742d93da5c60b98b7f1de6872852aee93690b36",
+          "member": "binned_outputs/square_008um/spatial/scalefactors_json.json",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        },
+        "image": {
+          "bytes": 376556,
+          "sha256": "b353a3d672b295384d6ae93cf34dd32b7a616d915487b337261063d760b37c0c",
+          "member": "binned_outputs/square_008um/spatial/tissue_lowres_image.png",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        },
+        "positions": {
+          "bytes": 11306067,
+          "sha256": "1ad99a19368bcb38064bd70d2df4dbf24e95dc09a0d929875ed175072b67d47c",
+          "member": "binned_outputs/square_008um/spatial/tissue_positions.parquet",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        }
+      }
+    },
+    {
+      "bin_um": 16,
+      "observations": 167161,
+      "features": 18085,
+      "rna_features": 18085,
+      "count_nonzeros": 30466651,
+      "coordinates_checked": 167161,
+      "image_size": [
+        478,
+        600
+      ],
+      "image_scale": 0.0122202085,
+      "checks": {
+        "counts_barcodes_features_coordinates_unchanged": true,
+        "observations_with_neighbors": 167161,
+        "maximum_neighbor_distance_um": 32.0,
+        "context_nonzeros": 120481659
+      },
+      "matrix_sha256": "e6c302d5f01fde01dd937fc07f9e5c61e8aeef1dd7a6d561b65ccea2972f0855",
+      "context_sha256": "7889098c76aa83ccd8aa58bf9690b41138c0900d6ee7c488af6c6376959046ad",
+      "assets": {
+        "h5": {
+          "bytes": 46819527,
+          "sha256": "42dcce30c750ed6ffa054c43715bb22a40ec7d7668db3f41f7585962948d3afc",
+          "member": "binned_outputs/square_016um/filtered_feature_bc_matrix.h5",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        },
+        "scalefactors": {
+          "bytes": 299,
+          "sha256": "6b1b57de7fa00932659243163ebed997f6b834a6a5d6dc2edcb3c040d18194ff",
+          "member": "binned_outputs/square_016um/spatial/scalefactors_json.json",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        },
+        "image": {
+          "bytes": 376556,
+          "sha256": "b353a3d672b295384d6ae93cf34dd32b7a616d915487b337261063d760b37c0c",
+          "member": "binned_outputs/square_016um/spatial/tissue_lowres_image.png",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        },
+        "positions": {
+          "bytes": 3308886,
+          "sha256": "41a722e056ebd052cd5e02629143603b30a30e3b8c8268c61c651e13312f2977",
+          "member": "binned_outputs/square_016um/spatial/tissue_positions.parquet",
+          "source_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz"
+        }
+      }
+    }
+  ],
+  "builder_version": "0.4.0",
+  "healthy_human_heart": true,
+  "binned_archive": {
+    "status": "complete",
+    "asset": "Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz",
+    "bytes": 6079689026,
+    "etag": "\"ef134d138e6f4143c3df8698cff88a18-725\"",
+    "sha256": "429f8d985f0ee7da5de4e3ae55d9901f16ae31798ebe9bd91155e518dbc78cc9",
+    "url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_binned_outputs.tar.gz",
+    "old_prefix_bytes": 0,
+    "new_network_bytes": 4737511746
+  },
+  "fastq_archive": {
+    "status": "complete",
+    "asset": "Visium_HD_6p5mm_Human_Heart_fastqs.tar",
+    "bytes": 14091520000,
+    "etag": "\"04e89ceeb966db7b04ce118b07b7de30-1680\"",
+    "sha256": "b08c1f9e2d791d15af1a2069e44b50ca8be90ec72480db8384d5b96025acc9c3",
+    "url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_fastqs.tar",
+    "old_prefix_bytes": 56115720,
+    "new_network_bytes": 14035404280,
+    "verification": "exact ranges pinned to ETag, final multipart checksum and SHA-256, TAR member list and first FASTQ record of each member",
+    "members": [
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L001_I1_001.fastq.gz",
+        "bytes": 558830909,
+        "lane": "001",
+        "read": "I1",
+        "first_record_bases": 10
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L001_I2_001.fastq.gz",
+        "bytes": 722104725,
+        "lane": "001",
+        "read": "I2",
+        "first_record_bases": 10
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L001_R1_001.fastq.gz",
+        "bytes": 2746614920,
+        "lane": "001",
+        "read": "R1",
+        "first_record_bases": 43
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L001_R2_001.fastq.gz",
+        "bytes": 2989664851,
+        "lane": "001",
+        "read": "R2",
+        "first_record_bases": 50
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L002_I1_001.fastq.gz",
+        "bytes": 561924605,
+        "lane": "002",
+        "read": "I1",
+        "first_record_bases": 10
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L002_I2_001.fastq.gz",
+        "bytes": 724387979,
+        "lane": "002",
+        "read": "I2",
+        "first_record_bases": 10
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L002_R1_001.fastq.gz",
+        "bytes": 2770673794,
+        "lane": "002",
+        "read": "R1",
+        "first_record_bases": 43
+      },
+      {
+        "member": "Visium_HD_6p5mm_Human_Heart_fastqs/Visium_HD_6p5mm_Human_Heart_S1_L002_R2_001.fastq.gz",
+        "bytes": 3017294289,
+        "lane": "002",
+        "read": "R2",
+        "first_record_bases": 50
+      }
+    ]
+  },
+  "cytassist_image": {
+    "raw_image_sha256": "9728cc5ad41ab7549b00f5986c284139accaa06974d1a5a67eed13038febe0b2",
+    "spatial_archive_etag": "\"291175d2b9f3ecb4f10014d09255ca8c-9\"",
+    "members": [
+      {
+        "member": "spatial/cytassist_image.tiff",
+        "bytes": 27157226,
+        "sha256": "9728cc5ad41ab7549b00f5986c284139accaa06974d1a5a67eed13038febe0b2"
+      }
+    ],
+    "same_bytes": true,
+    "archive_url": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_spatial.tar.gz"
+  },
+  "raw_recount": {
+    "status": "not_run",
+    "engine": "Space Ranger 4.1.0",
+    "reference": "GRCh38-2020-A",
+    "slide": "H1-ZX2RP3Y",
+    "area": "A1",
+    "input_preparation": "FASTQ, CytAssist TIFF and probe CSV on E drive; acquire H&E BTF and reference on supported Linux server"
+  }
+}
