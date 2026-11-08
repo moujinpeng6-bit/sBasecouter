@@ -37,7 +37,7 @@ Space Ranger 的两种 3′ 规则与原版 `Gene` / `GeneFull` 对比的是类�
 ```
 
 - `source_report` 可选。提供时按 `sample_id` 查找唯一记录，核对来源样本号、研究号、物种与平台，并带入报告中的疾病状态和来源证据。清单仍需给出与该切片对应的原始输入路径。
-- Visium HD 将 `platform` 改成 `Visium HD`，并提供 `cytaimage`。探针法将 `assay` 改成 `probe`，同时提供 `cytaimage`、`probe_set` 并选择探针计数规则。离线分析可通过 `slidefile` 指向匹配的官方切片布局文件。
+- Visium HD 将 `platform` 改成 `Visium HD`，并提供 `cytaimage`。探针法将 `assay` 改成 `probe`，同时提供 `cytaimage`、`probe_set` 并选择探针计数规则。离线分析可通过 `slidefile` 指向匹配的官方切片布局文件。需要手动图像配准时，可提供同一切片的 `loupe_alignment` 文件。
 - Xenium 将 `platform`、`assay`、`count_policy` 改成 `Xenium`、`in_situ`、`resegment`，用 `xenium_bundle` 指向完整 XOA 输出目录。`engine_version` 改成实际安装的 Xenium Ranger 版本，例如 `4.0.0`。重新分割后应重新核查细胞类型标签与新细胞 ID 的对应。
 - 比较同一切片的两种计数规则时，用两个清单文件，保持切片 ID 和源文件相同，分别指定 `count_policy` 并写到不同输出目录。
 
@@ -52,7 +52,7 @@ python -m sbasecouter recount --manifest manifests/slice-a.json --out runs/slice
 nextflow run workflows/recount.nf --manifests manifests --outdir runs/batch --cores 16 --memory_gb 128
 ```
 
-单样本 `recount` 需要新的输出目录。Nextflow 从目录下的 JSON 清单逐样本调度，按清单文件名写入独立目录。它继续运行其他样本，并在有失败时以错误退出。当前从清单引用的原始资产由 Python 读入并记录 SHA-256，因此关闭了 Nextflow 的自动缓存，已有输出目录会被保护。失败后可以为待重试样本指定新的输出位置。[Nextflow 执行与资源](https://training.nextflow.io/latest/config_exec/02_resources_and_retries/)
+单样本 `recount` 默认使用新目录。v0.4 可用 `--resume` 重开同一个输出目录，恢复前核对原始文件、参考库、引擎版本和运行参数。厂商引擎中断时，用相同命令继续原有运行。引擎已完成时，继续空间核查并复用已校验的矩阵。Nextflow 批量入口自动传入 `--resume`，其自身缓存关闭，由项目的校验记录判断可复用项。单样本失败后，Nextflow 仍会调度其他样本并在结束时返回失败状态。引擎仍在运行或锁文件待处理时，请根据厂商日志确认运行状态。[Nextflow 执行与资源](https://training.nextflow.io/latest/config_exec/02_resources_and_retries/) · [Space Ranger 恢复说明](https://www.10xgenomics.com/support/software/space-ranger/latest/analysis/sr-troubleshooting)
 
 任务先写 `recount.json` 记录状态。进入计数时还会写 `inputs.json` 和 `engine.log`。生成的矩阵必须先通过条码、坐标、图像和尺度核对，才进入 `dataset/catalog.json` 的成功记录。`.h5ad` 的 `X` 保存重新处理的整数计数，`source_record_json` 保存引擎版本、规则、参考库标识和来源关联。对细胞级 Xenium 输出，可接着运行 [`context`](spatial_context.md) 生成带邻居信息的另一层表达矩阵。
 

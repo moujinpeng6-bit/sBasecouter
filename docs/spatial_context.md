@@ -1,6 +1,6 @@
 # 细胞条码、邻居与空间表达
 
-`context` 接收一张由 `build` 整理好的细胞级切片。原始实验条码继续用于匹配表达和坐标。输出另加切片内唯一的 `spatial_cell_id`，以及能追溯输入文件、标注和参数的 `spatial_context_id`。邻居类型与表达保存在数值字段，供后续分析或模型读取。
+`context` 接收一张由 `build` 或 `recount` 整理好的切片。原始实验条码继续用于匹配表达和坐标。输出另加 `spatial_observation_id`，以及能追溯输入文件、标注和参数的 `spatial_context_id`。细胞级数据保留 `spatial_cell_id`。邻居类型与表达保存在数值字段，供后续分析或模型读取。
 
 ```powershell
 .\.venv\Scripts\sbasecouter.exe context --input "runs/one_slice.h5ad" --out "runs/one_slice_context.h5ad" --neighbors 8 --radius-um 50 --alpha 0.25
@@ -23,7 +23,13 @@
 
 这里借鉴 scGPT-spatial 按真实空间位置选择邻居的设计。scGPT-spatial 在模型训练中用邻域信息构建重建目标。当前实现是可复算的邻域加权基线。对于测序型平台，可在上游参考原版 scRecounter 的参考基因组、读段比对、UMI 去重和计数规则。对于 Xenium，输入是探针检测并分配给已分割细胞的计数。当前上下文步骤从发布者已有的基因 ID 和计数开始。[scGPT-spatial 论文](https://doi.org/10.1101/2025.02.05.636714) · [scGPT-spatial 源码](https://github.com/bowang-lab/scGPT-spatial) · [原版 scRecounter](https://github.com/ArcInstitute/scRecounter) · [Xenium 输出约定](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/outputs/xoa-output-overview)
 
-本入口按细胞级观测计算。Visium spot 或原生 HD bin 的邻域需要单独按其观测单位定义。
+| 观测 | 用于计算邻居的坐标 | 默认半径 |
+| --- | --- | --- |
+| Xenium 细胞 | 实验记录中的微米质心 | 50 µm |
+| Visium spot | 按交错阵列行列恢复的标称微米位置，最近点中心间距 100 µm | 150 µm |
+| Visium HD bin | 按原生 bin 尺寸换算的正方形网格微米位置 | bin 边长的两倍 |
+
+Visium 和 Visium HD 的邻居限定在 `in_tissue` 的观测中，各分辨率独立运行。`obsm["context_xy_um"]` 保存用于邻域计算的位置，原有的图像像素坐标仍用于切片显示。类型比例和同类型加权只对细胞级标注启用。[10x 空间输出格式](https://www.10xgenomics.com/support/software/space-ranger/latest/analysis/spatial-outputs) · [10x 网格和点间距](https://cdn.10xgenomics.com/image/upload/v1722285090/support/documents/CG000686_VisiumHDSpatialApplicationsImagingGuidelines-TN_RevA.pdf)
 
 ## 真实切片验收
 

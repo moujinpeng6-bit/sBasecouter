@@ -8,6 +8,7 @@ import sys
 
 from .build import build
 from .context import build_context
+from .prepare import prepare
 from .recount import recount
 
 
@@ -19,13 +20,14 @@ def main(argv=None):
     command.add_argument("--out", type=Path, required=True, help="New output directory")
     command.add_argument("--sample-id", action="append", default=[], help="Exact report sample ID. Repeat to select several")
     command.add_argument("--normalize-total", type=float, help="Also store a log1p library-size layer, for example 10000")
-    context = subparsers.add_parser("context", help="Add a cell neighborhood and derived expression layers")
+    command.add_argument("--resume", action="store_true", help="Verify and reuse existing records, then process new samples")
+    context = subparsers.add_parser("context", help="Add a cell, spot or bin neighborhood and derived expression layers")
     context.add_argument("--input", type=Path, required=True)
     context.add_argument("--out", type=Path, required=True)
     context.add_argument("--cell-types", type=Path, help="Optional same-slice slice_id,barcode,cell_type CSV")
     context.add_argument("--cell-types-source", help="Reference for the supplied annotation table, saved in the output")
     context.add_argument("--neighbors", type=int, default=8)
-    context.add_argument("--radius-um", type=float, default=50)
+    context.add_argument("--radius-um", type=float, help="Defaults to 50 for cells, 150 for spots or twice the bin size")
     context.add_argument("--alpha", type=float, default=0.25, help="Neighbor share for cells with measured RNA")
     context.add_argument("--same-type-weight", type=float, default=2.0)
     raw = subparsers.add_parser("recount", help="Run a vendor spatial recount from a sample manifest")
@@ -35,11 +37,21 @@ def main(argv=None):
     raw.add_argument("--cores", type=int)
     raw.add_argument("--memory-gb", type=int)
     raw.add_argument("--plan", action="store_true", help="Check the declared inputs and print the command")
+    raw.add_argument("--resume", action="store_true", help="Resume a verified checkpoint with identical inputs")
+    prep = subparsers.add_parser("prepare", help="Match SRAgent-spatial samples to pinned raw asset recipes")
+    prep.add_argument("--report", type=Path, required=True)
+    prep.add_argument("--recipes", type=Path, required=True)
+    prep.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
+        if args.command == "prepare":
+            results = prepare(args.report, args.recipes, args.out)
+            ready = sum(row["status"] == "ready" for row in results)
+            print(json.dumps({"ready":ready, "unresolved":len(results) - ready}))
+            return 0 if ready and ready == len(results) else 1
         if args.command == "recount":
             result = recount(args.manifest, args.out, executable=args.engine, cores=args.cores,
-                             memory_gb=args.memory_gb, plan_only=args.plan)
+                             memory_gb=args.memory_gb, plan_only=args.plan, resume=args.resume)
             print(json.dumps(result))
             return 0
         if args.command == "context":
@@ -48,7 +60,8 @@ def main(argv=None):
                                    label_source=args.cell_types_source)
             print(json.dumps(result))
             return 0
-        catalog = build(args.report,args.out,sample_ids=args.sample_id,normalize_total=args.normalize_total)
+        catalog = build(args.report, args.out, sample_ids=args.sample_id, normalize_total=args.normalize_total,
+                        resume=args.resume)
     except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
         print(str(exc), file=sys.stderr)
         return 2

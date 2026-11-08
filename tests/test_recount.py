@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import shutil
 import subprocess
 from tempfile import TemporaryDirectory
 import unittest
@@ -128,6 +129,14 @@ class RecountTests(unittest.TestCase):
                 self.run_fixture(manifest, root / "partial", platform="Visium HD", version="4.1.0", omit=16)
             report = json.loads((root / "partial/recount.json").read_text())
             self.assertEqual((report["status"], report["totals"]["built"], report["totals"]["failed"]), ("failed", 2, 1))
+            resolution = Path("spatial_count/outs/binned_outputs/square_016um")
+            shutil.copytree(root / "valid" / resolution, root / "partial" / resolution)
+            with patch("sbasecouter.recount.shutil.which", return_value=str(manifest)), patch(
+                "sbasecouter.recount.subprocess.run", return_value=subprocess.CompletedProcess([], 0, stdout="vendor-4.1.0"),
+            ) as vendor:
+                recovered = recount(manifest, root / "partial", resume=True)
+            self.assertEqual(recovered["totals"]["built"], 3)
+            self.assertEqual(vendor.call_count, 1)
 
     def test_xenium_output_has_real_count_provenance_and_spatial_coordinates(self):
         with TemporaryDirectory() as directory:
@@ -144,3 +153,23 @@ class RecountTests(unittest.TestCase):
             source = json.loads(data.uns["source_record_json"])
             self.assertEqual(source["matrix_kind"], "local_recount")
             self.assertEqual(source["recount"]["count_policy"], "resegment")
+
+    def test_resume_reuses_engine_outputs_and_rejects_changed_fastq(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, _ = self.manifest(root, "Visium", "three_prime", "exonic")
+            out = root / "out"
+            with patch("sbasecouter.recount.build", side_effect=KeyboardInterrupt):
+                with self.assertRaises(KeyboardInterrupt):
+                    self.run_fixture(manifest, out, platform="Visium", version="4.1.0")
+            self.assertTrue(json.loads((out / "recount.json").read_text())["engine_completed"])
+            with patch("sbasecouter.recount.shutil.which", return_value=str(manifest)), patch(
+                "sbasecouter.recount.subprocess.run", return_value=subprocess.CompletedProcess([], 0, stdout="vendor-4.1.0"),
+            ) as vendor:
+                self.assertEqual(recount(manifest, out, resume=True)["status"], "completed")
+                self.assertEqual(recount(manifest, out, resume=True)["totals"]["built"], 1)
+                self.assertTrue(all(call.args[0][1] == "--version" for call in vendor.call_args_list))
+                next((root / "reads").glob("*.fastq.gz")).write_bytes(b"changed")
+                with self.assertRaisesRegex(ValueError, "different inputs"):
+                    recount(manifest, out, resume=True)
+            self.assertEqual(json.loads((out / "recount.json").read_text())["status"], "completed")

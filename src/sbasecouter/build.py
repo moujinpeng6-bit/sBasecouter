@@ -11,6 +11,7 @@ import anndata
 import numpy as np
 
 from . import __version__
+from .checkpoint import output_lock
 from .formats import expression, spatial
 
 SUPPORTED = {"Visium", "Visium HD", "Xenium"}
@@ -111,7 +112,7 @@ def eligibility(row, request, *, local_recount=False):
     return None
 
 
-def build(reports, out, *, sample_ids=(), normalize_total=None, local_recount=False):
+def build(reports, out, *, sample_ids=(), normalize_total=None, local_recount=False, resume=False):
     if normalize_total is not None and (not math.isfinite(normalize_total) or normalize_total <= 0):
         raise ValueError("Normalization target must be positive and finite")
     wanted = set(sample_ids)
@@ -131,8 +132,30 @@ def build(reports, out, *, sample_ids=(), normalize_total=None, local_recount=Fa
             samples[sample] = (row, request, path, report_sha)
     if wanted - samples.keys():
         raise ValueError("Unknown sample IDs: " + ", ".join(sorted(wanted - samples.keys())))
-    out.mkdir(parents=True, exist_ok=False)
-    catalog = {"schema":1,"builder_version":__version__,"normalization_target":normalize_total,"samples":[]}
+    out.mkdir(parents=True, exist_ok=resume)
+    with output_lock(out):
+        return build_catalog(samples, out, normalize_total=normalize_total, local_recount=local_recount)
+
+
+def build_catalog(samples, out, *, normalize_total, local_recount):
+    identity = {"schema":2,"builder_version":__version__,"normalization_target":normalize_total,
+                "local_recount":local_recount}
+    fingerprints = {sample:hashlib.sha256(json.dumps(entry[:2], sort_keys=True).encode()).hexdigest()
+                    for sample, entry in samples.items()}
+    catalog_path = out / "catalog.json"
+    catalog = {**identity, "sample_fingerprints":fingerprints, "samples":[]}
+    existing = {}
+    if catalog_path.is_file():
+        previous = json.loads(catalog_path.read_bytes())
+        if any(previous.get(key) != value for key, value in identity.items()):
+            raise ValueError("Existing catalog belongs to different inputs or options")
+        existing = {row["sample_id"]:row for row in previous["samples"]}
+        if not previous["sample_fingerprints"].keys() <= fingerprints.keys():
+            raise ValueError("Resume requires all previous sample IDs")
+        if any(fingerprints[key] != previous["sample_fingerprints"][key]
+               for key, row in existing.items() if row["status"] == "built"):
+            raise ValueError("Resume cannot change inputs for an already built sample")
+        catalog["samples"] = list(existing.values())
 
     def save():
         pending = out / "catalog.tmp"
@@ -141,22 +164,32 @@ def build(reports, out, *, sample_ids=(), normalize_total=None, local_recount=Fa
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
-        pending.replace(out / "catalog.json")
+        pending.replace(catalog_path)
 
-    save()
+    if not catalog_path.is_file():
+        if any(out.glob("*.h5ad")):
+            raise ValueError("Existing matrices require a matching catalog")
+        save()
     for sample, (row, request, path, report_sha) in samples.items():
+        old = existing.get(sample)
+        filename = hashlib.sha256(sample.encode()).hexdigest() + ".h5ad"
+        if old and old["status"] == "built":
+            checked_files(row, path)
+            if old.get("file") != filename or sha256(out / filename) != old["sha256"]:
+                raise ValueError(f"Existing AnnData differs from the saved catalog: {sample}")
+            continue
         result = {key:row[key] for key in ("sample_id","source_sample_id","study_id","platform","source_url") if key in row}
         reason = eligibility(row, request, local_recount=local_recount)
         if reason:
             result.update(status="skipped", reason=reason)
         else:
-            filename = hashlib.sha256(sample.encode()).hexdigest() + ".h5ad"
             try:
                 result.update(write_record(row, request, path, report_sha, out/filename, normalize_total))
                 result["status"] = "built"
             except (OSError, EOFError, ValueError, KeyError, TypeError, IndexError, OverflowError) as exc:
                 result.update(status="failed", reason=str(exc), error_type=type(exc).__name__)
-        catalog["samples"].append(result)
+        existing[sample] = result
+        catalog["samples"] = list(existing.values())
         save()
     catalog["totals"] = {status:sum(row["status"]==status for row in catalog["samples"])
                          for status in ("built","failed","skipped")}

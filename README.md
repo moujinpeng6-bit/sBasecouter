@@ -50,6 +50,8 @@ python -m venv .venv
 
 ## 验收
 
+v0.4 新增原始输入准备、可验证续跑、增量目录，以及 Visium spot 和 Visium HD bin 的独立空间邻域。[v0.4 使用与验收范围](docs/release_0_4.md)
+
 v0.2 可对细胞级切片计算邻居图、细胞类型比例、邻居表达和空间上下文表达。人胰腺癌 Xenium 的类型标注与原条码逐个核对后已实测。命令及计算方式见 [空间上下文](docs/spatial_context.md)，核对结果见 [v0.2 验收统计](examples/context_acceptance.json)。
 
 | 已重读的真实切片 | 数据量 | 验收范围 |

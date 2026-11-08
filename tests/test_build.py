@@ -75,6 +75,23 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(result["totals"]["failed"],1)
             self.assertIn("SHA-256",result["samples"][0]["reason"])
 
+    def test_resume_adds_new_records_without_rewriting_verified_matrix(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            report, row = self.fixture(root)
+            out = root / "out"
+            first = build([report], out)["samples"][0]
+            matrix = out / first["file"]
+            before = matrix.stat().st_mtime_ns
+            report.write_text(json.dumps({"request":{"organism":"Homo sapiens"},
+                                          "samples":[row, {**row, "sample_id":"b"}]}),encoding="utf8")
+            result = build([report], out, resume=True)
+            self.assertEqual(result["totals"]["built"], 2)
+            self.assertEqual(matrix.stat().st_mtime_ns, before)
+            matrix.write_bytes(b"changed")
+            with self.assertRaisesRegex(ValueError, "differs from the saved catalog"):
+                build([report], out, resume=True)
+
     def test_complete_hd_bin_preserves_resolution_and_refuses_mismatch(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -8,6 +8,7 @@ import shutil
 import subprocess
 
 from .build import HUMAN, build, sha256
+from .checkpoint import output_lock
 
 
 RUN_ID = "spatial_count"
@@ -127,7 +128,8 @@ def create_plan(manifest, root, *, executable=None, cores=None, memory_gb=None):
         command = ["count", f"--id={RUN_ID}", f"--fastqs={fastqs}", f"--sample={prefix}",
                    f"--transcriptome={reference}", "--create-bam=false", POLICIES[assay][policy]]
         for key, flag, required in (("image", "image", True), ("cytaimage", "cytaimage", assay == "probe" or platform == "Visium HD"),
-                                    ("probe_set", "probe-set", assay == "probe"), ("slidefile", "slidefile", False)):
+                                    ("probe_set", "probe-set", assay == "probe"), ("slidefile", "slidefile", False),
+                                    ("loupe_alignment", "loupe-alignment", False)):
             if required or key in manifest:
                 if key == "probe_set" and assay != "probe":
                     raise ValueError("Use probe_set only for probe-based assays")
@@ -177,19 +179,33 @@ def read_plan(manifest_path, executable, cores, memory_gb):
     return body, sample, plan, inputs
 
 
-def recount(manifest_path, out, *, executable=None, cores=None, memory_gb=None, plan_only=False):
+def recount(manifest_path, out, *, executable=None, cores=None, memory_gb=None, plan_only=False, resume=False):
     if plan_only:
         _, sample, plan, inputs = read_plan(manifest_path, executable, cores, memory_gb)
         return {"sample":sample, **plan, "input_files":[str(p) for p in inputs]}
     out = out.resolve()
-    out.mkdir(parents=True, exist_ok=False)
+    created = False
+    try:
+        out.mkdir(parents=True)
+        created = True
+    except FileExistsError:
+        if not resume or not out.is_dir():
+            raise
+    with output_lock(out):
+        return run_recount(manifest_path, out, executable, cores, memory_gb, not created)
+
+
+def run_recount(manifest_path, out, executable, cores, memory_gb, resume):
     journal = out / "recount.json"
-    record = {"manifest":str(manifest_path), "stage":"preflight", "status":"running"}
-    save_json(journal, record)
+    if resume:
+        record = json.loads(journal.read_bytes())
+    else:
+        record = {"manifest":str(manifest_path), "stage":"preflight", "status":"running"}
+        save_json(journal, record)
+    inventory = out / "inputs.json"
+    can_record_failure = not resume or not inventory.exists()
     try:
         body, sample, plan, inputs = read_plan(manifest_path, executable, cores, memory_gb)
-        record.update(sample=sample, **plan)
-        (out / "input_manifest.json").write_bytes(body)
         command = plan["command"]
         engine = shutil.which(command[0])
         if engine is None:
@@ -200,15 +216,26 @@ def recount(manifest_path, out, *, executable=None, cores=None, memory_gb=None, 
             raise ValueError(f"Engine version differs from manifest: {version!r}")
         plan["engine_version"] = version
         # Large input digests are stored once, outside the per-bin AnnData metadata.
-        manifest = out / "inputs.json"
-        save_json(manifest, {"input_manifest_sha256":sha256(out / "input_manifest.json"),
-                            "files":[{"path":str(p), "bytes":p.stat().st_size, "sha256":sha256(p)} for p in inputs]})
-        plan["inputs_sha256"] = sha256(manifest)
-        record.update(plan, stage="counting")
-        save_json(journal, record)
-        with (out / "engine.log").open("w", encoding="utf8") as log:
-            subprocess.run(command, cwd=out, stdout=log, stderr=subprocess.STDOUT, check=True)
-        record.update(stage="validation")
+        fingerprints = {"input_manifest_sha256":hashlib.sha256(body).hexdigest(),
+                        "files":[{"path":str(p), "bytes":p.stat().st_size, "sha256":sha256(p)} for p in inputs]}
+        if inventory.exists():
+            if json.loads(inventory.read_bytes()) != fingerprints or any(record.get(k) != v for k, v in plan.items()):
+                raise ValueError("Cannot resume with different inputs, reference, count command or engine version")
+        else:
+            record.update(sample=sample, **plan)
+            save_json(journal, record)
+            (out / "input_manifest.json").write_bytes(body)
+            save_json(inventory, fingerprints)
+        plan["inputs_sha256"] = sha256(inventory)
+        can_record_failure = True
+        record.pop("error", None)
+        record.update(plan, status="running")
+        if not record.get("engine_completed"):
+            record.update(stage="counting")
+            save_json(journal, record)
+            with (out / "engine.log").open("a", encoding="utf8") as log:
+                subprocess.run(command, cwd=out, stdout=log, stderr=subprocess.STDOUT, check=True)
+        record.update(stage="validation", engine_completed=True)
         save_json(journal, record)
         rows = []
         for size, paths in output_assets(out / RUN_ID / "outs", sample["platform"]):
@@ -219,14 +246,24 @@ def recount(manifest_path, out, *, executable=None, cores=None, memory_gb=None, 
                 row.update(bin_um=size, sample_id=f"{sample['sample_id']}--{size}um")
             rows.append(row)
         report = out / "spatial_assets.json"
-        save_json(report, {"request":{"organism":sample["organism"]}, "samples":rows})
-        result = build([report], out / "dataset", local_recount=True)
+        report_data = {"request":{"organism":sample["organism"]}, "samples":rows}
+        if report.exists():
+            previous = json.loads(report.read_bytes())
+            if len(previous["samples"]) != len(rows) or any(
+                {**current, "files":old["files"]} != old or
+                any(current["files"].get(role) != asset for role, asset in old["files"].items())
+                for old, current in zip(previous["samples"], rows)
+            ):
+                raise ValueError("The validated engine outputs changed since the previous attempt")
+        save_json(report, report_data)
+        result = build([report], out / "dataset", local_recount=True, resume=resume)
         record["totals"] = result["totals"]
         if record["totals"]["built"] != len(rows):
             raise ValueError("One or more spatial outputs failed validation. See dataset/catalog.json")
     except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError, KeyboardInterrupt) as exc:
-        record.update(status="failed", error=str(exc))
-        save_json(journal, record)
+        if can_record_failure:
+            record.update(status="failed", error=str(exc))
+            save_json(journal, record)
         raise
     record.update(stage="complete", status="completed")
     save_json(journal, record)

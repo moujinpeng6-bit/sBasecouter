@@ -25,7 +25,7 @@ process RECOUNT {
     script:
     """
     python -m sbasecouter recount --manifest ${quoted(manifest)} --out ${quoted(destination)} \\
-        --cores ${task.cpus} --memory-gb ${task.memory.toGiga()}
+        --cores ${task.cpus} --memory-gb ${task.memory.toGiga()} --resume
     """
 }
 

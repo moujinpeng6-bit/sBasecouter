@@ -69,8 +69,22 @@ class ContextTests(unittest.TestCase):
         self.assertEqual(data.layers["spatial_context_expression"].getrow(3).nnz, 0)
         self.assertGreater(data.layers["neighbor_expression"].getrow(3).nnz, 0)
 
-    def test_refuses_spots_for_cell_neighborhoods(self):
-        data = self.fixture()
-        data.uns["spatial_reference"]["observation_unit"] = "spot"
-        with self.assertRaisesRegex(ValueError,"cell-resolved"):
-            contextualize(data,neighbors=8,radius=3,alpha=0.25,same_type_weight=2)
+    def test_grid_neighborhood_respects_layout_tissue_mask_and_resolution(self):
+        for unit, cols, rows, expected in (
+            ("spot", [0, 1, 2, 3, 20], [0, 1, 0, 1, 0], 100),
+            ("bin", [0, 1, 1, 2, 20], [0, 0, 1, 1, 0], 2),
+            ("bin", [0, 1, 1, 2, 20], [0, 0, 1, 1, 0], 8),
+            ("bin", [0, 1, 1, 2, 20], [0, 0, 1, 1, 0], 16),
+        ):
+            with self.subTest(unit=unit, spacing=expected):
+                data = self.fixture()
+                data.uns["spatial_reference"].update(observation_unit=unit, bin_um=expected)
+                data.obs["array_col"], data.obs["array_row"] = cols, rows
+                data.obs["in_tissue"] = [True, True, True, False, True]
+                result = contextualize(data, neighbors=8, radius=None, alpha=0.25, same_type_weight=2)
+                graph = data.obsp["spatial_neighbors"]
+                self.assertEqual(graph.getrow(0).nnz, 2)
+                self.assertFalse(graph.getrow(3).nnz or graph.getcol(3).nnz)
+                self.assertEqual(result["observations_with_neighbors"], 3)
+                self.assertNotIn("neighbor_type_fractions", data.obsm)
+                self.assertAlmostEqual(np.linalg.norm(data.obsm["context_xy_um"][1]), expected)
