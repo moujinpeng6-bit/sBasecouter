@@ -1,0 +1,66 @@
+{
+  "queries": [
+    "site:10xgenomics.com/datasets Human Visium HD breast Fixed Frozen",
+    "site:cf.10xgenomics.com \"Visium HD\" \"Human breast\" web_summary Fixed Frozen",
+    "site:10xgenomics.com \"Human Breast Cancer\" \"Fixed Frozen\" \"Visium HD\"",
+    "site:cf.10xgenomics.com \"H2-N3TYW94\" web_summary"
+  ],
+  "manifest": {
+    "status": "public_sources_verified",
+    "sample_id": "visium-hd-cytassist-gene-expression-human-breast-cancer-fixed-frozen",
+    "card": "https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-human-breast-cancer-fixed-frozen",
+    "publisher_summary": "https://cf.10xgenomics.com/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_web_summary.html",
+    "organism": "Homo sapiens",
+    "platform": "Visium HD",
+    "assay": "probe",
+    "slide": "H1-BYFBQ82",
+    "area": "A1",
+    "engine_version": "3.1.1",
+    "reference_id": "GRCh38-2020-A",
+    "fastq_sample": "Visium_HD_Human_Breast_Cancer_Fixed_Frozen",
+    "publisher_fastq_directories": [
+      "Visium_HD_Human_Breast_Cancer_Fixed_Frozen_fastqs"
+    ],
+    "first_fastq_member_checked": "Visium_HD_Human_Breast_Cancer_Fixed_Frozen_fastqs/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_S1_L001_I1_001.fastq.gz",
+    "cytassist_slide_tag_verified": true,
+    "assets": {
+      "fastq_archive": {
+        "url": "https://cf.10xgenomics.com/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_fastqs.tar",
+        "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_fastqs.tar",
+        "bytes": 38858178560,
+        "etag": "\"3e6b60fc61cfefca409768b126f462dd-4633\""
+      },
+      "cytassist": {
+        "url": "https://cf.10xgenomics.com/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_image.tif",
+        "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_image.tif",
+        "bytes": 26012118,
+        "etag": "\"1a6864622ee224774064968dad6c44ee-4\""
+      },
+      "microscope": {
+        "url": "https://cf.10xgenomics.com/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_tissue_image.btf",
+        "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_tissue_image.btf",
+        "bytes": 4895656422,
+        "etag": "\"ff4698c99ab19059b66897cf33d43699-584\""
+      },
+      "probe_set": {
+        "url": "https://cf.10xgenomics.com/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_probe_set.csv",
+        "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/3.1.1/Visium_HD_Human_Breast_Cancer_Fixed_Frozen/Visium_HD_Human_Breast_Cancer_Fixed_Frozen_probe_set.csv",
+        "bytes": 6134282,
+        "etag": "\"a74f1583689de3c9f95164b2fc090194\""
+      },
+      "reference": {
+        "url": "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz",
+        "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz",
+        "bytes": 11448662640,
+        "etag": "\"756a4eb76dccb0a7f9d909ace754c6ee-1365\""
+      }
+    }
+  },
+  "other_candidates": [
+    {
+      "card": "https://www.10xgenomics.com/datasets/visium-hd-cytassist-11mm-human-breast-cancer",
+      "status": "verification_failed",
+      "reason": "ValueError: FASTQ archive member disagrees with the summary sample prefix"
+    }
+  ]
+}

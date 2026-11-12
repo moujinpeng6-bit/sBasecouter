@@ -1,0 +1,41 @@
+{
+  "sample_id": "visium-hd-cytassist-6p5mm-human-heart",
+  "source": "https://www.10xgenomics.com/datasets/visium-hd-cytassist-6p5mm-human-heart",
+  "slide": "H1-ZX2RP3Y",
+  "area": "A1",
+  "verified_on": "2026-11-13",
+  "method": "Local complete files reread, multipart ETag matched to published objects, SHA-256 matched to download receipts, and key internal structures opened",
+  "assets": {
+    "he": {
+      "status": "complete",
+      "asset": "Visium_HD_6p5mm_Human_Heart_tissue_image.btf",
+      "url": "https://cf.10xgenomics.com/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_tissue_image.btf",
+      "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/samples/spatial-exp/4.1.0/Visium_HD_6p5mm_Human_Heart/Visium_HD_6p5mm_Human_Heart_tissue_image.btf",
+      "bytes": 5813436731,
+      "etag": "\"38795b628bce822b633467104d6f0f94-694\"",
+      "sha256": "e8ae21fe4310970fcf2986c74d28e8f2430cc32ac04ce63bc3ce99a0fa7171cb",
+      "image_shape": [
+        49099,
+        39139,
+        3
+      ],
+      "is_bigtiff": true
+    },
+    "reference": {
+      "status": "complete",
+      "asset": "refdata-gex-GRCh38-2020-A.tar.gz",
+      "url": "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz",
+      "mirror": "https://s3.us-west-2.amazonaws.com/10x.files/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz",
+      "bytes": 11448662640,
+      "etag": "\"756a4eb76dccb0a7f9d909ace754c6ee-1365\"",
+      "sha256": "7b657077f9d7eb18eee9c3c16a0cbf7dc6e590b1a0a1ad326ea1b5070a00d163",
+      "reference_id": "GRCh38-2020-A",
+      "reference_files_verified": true,
+      "members_checked": [
+        "reference.json",
+        "fasta/genome.fa",
+        "genes/genes.gtf"
+      ]
+    }
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "source": "https://zenodo.org/records/6921620",
+  "label_source": "https://github.com/khodosevichlab/Schizophrenia20/blob/main/Notebook6_Visium.md#L537-L538",
+  "samples": [
+    {
+      "slice": "MB7",
+      "donor": "MB7",
+      "cohort": "control",
+      "files": {
+        "h5": "MB7/filtered_feature_bc_matrix.h5",
+        "positions": "MB7/tissue_positions_list.csv",
+        "image": "MB7/tissue_lowres_image.png",
+        "scalefactors": "MB7/scalefactors_json.json"
+      },
+      "labels": "MB7/labels.csv",
+      "sha256": {
+        "h5": "0cfe0679874622ad2bffda44a4b465385b2f1fb49ff7186a0d3a9a21d052f175",
+        "positions": "b4d015d610df2e3a658fae978d7b4503882be1506a7a3325cc3a711ca77f1b09",
+        "image": "85e2d1b1c26f4f97859668f2dc1bde07241fa3b64b08fcaa5d971a921ce109be",
+        "scalefactors": "5239442e21643d2239861c723d367e3e9f825f4b1cf4d53da1c96d685027f3e9",
+        "labels": "4ccbadd30523bbec9a5c6a3ea96aed671a56f6532513102cfc38a96f53bb0a4b"
+      }
+    },
+    {
+      "slice": "MB9",
+      "donor": "MB9",
+      "cohort": "control",
+      "files": {
+        "h5": "MB9/filtered_feature_bc_matrix.h5",
+        "positions": "MB9/tissue_positions_list.csv",
+        "image": "MB9/tissue_lowres_image.png",
+        "scalefactors": "MB9/scalefactors_json.json"
+      },
+      "labels": "MB9/labels.csv",
+      "sha256": {
+        "h5": "d274493ea5530be0ac93e2a71a023e0e051ee1029e9ba821eb09197d2e43b642",
+        "positions": "4bcd5a6ca1576583d967a6629aba9ea4da2536b8b58770f1b220a38979a62613",
+        "image": "653e68d02e71ceaa3c8dc67fd82f251a93f219a1bbfb4b0fb1397c904753ecef",
+        "scalefactors": "0a29f2eae22ba5939bb3cf9628aa0179f8abf38e5ef06a7dbb1bf2ba59499429",
+        "labels": "f61a1a3d1d0b52fabf3762ad381cec6b9f4a97af4f24863b7d3022ce85e6252e"
+      }
+    },
+    {
+      "slice": "MB11",
+      "donor": "MB11",
+      "cohort": "control",
+      "files": {
+        "h5": "MB11/filtered_feature_bc_matrix.h5",
+        "positions": "MB11/tissue_positions_list.csv",
+        "image": "MB11/tissue_lowres_image.png",
+        "scalefactors": "MB11/scalefactors_json.json"
+      },
+      "labels": "MB11/labels.csv",
+      "sha256": {
+        "h5": "36d1726011fd7ab7e58f2bede9c6a3a0f5d4f31dc1f7df04f03c771e97394425",
+        "positions": "b323e2c6ad27ab255f6e4822ac681f7ad39739131c652b223776736a5add52f6",
+        "image": "d8179f7c63937eb5bd40f0bd7da710fe45b342b4bc012a1358ddd7cfaed44846",
+        "scalefactors": "164d18f6819b7a3b4e6b0bfc4dadf63d3060fb1c90cfdea367835d6b38dba2ab",
+        "labels": "bb59e6a23e4dbc6bf4049c7d1ed2bcfb65aa947fbb7b8d9772980a4b73610986"
+      }
+    },
+    {
+      "slice": "MB15",
+      "donor": "MB15",
+      "cohort": "control",
+      "files": {
+        "h5": "MB15/filtered_feature_bc_matrix.h5",
+        "positions": "MB15/tissue_positions_list.csv",
+        "image": "MB15/tissue_lowres_image.png",
+        "scalefactors": "MB15/scalefactors_json.json"
+      },
+      "labels": "MB15/labels.csv",
+      "sha256": {
+        "h5": "0f97b59c807d6af74d55b56ae8cfc7388fae0d7d064ed315bb5fc213da2e8039",
+        "positions": "c52822da83867923b93c8b45edc5bde0fadfe4216b9e6996bf922a37cf96513e",
+        "image": "7fc15541608131c4786efb8aa908616ad115bcf27fee30a1e6f4bb9a337b6543",
+        "scalefactors": "86fc4497937af2fe78875a71f39e4b5d99455c84812becc80f3af1d5bacde155",
+        "labels": "50f4784ce2cf71a86290c8f004bbf475fafb4806762725dbb9aa331022bb47e3"
+      }
+    },
+    {
+      "slice": "MB19",
+      "donor": "MB19",
+      "cohort": "control",
+      "files": {
+        "h5": "MB19/filtered_feature_bc_matrix.h5",
+        "positions": "MB19/tissue_positions_list.csv",
+        "image": "MB19/tissue_lowres_image.png",
+        "scalefactors": "MB19/scalefactors_json.json"
+      },
+      "labels": "MB19/labels.csv",
+      "sha256": {
+        "h5": "7331fe4c42a0b2bf7bafbaa178516ec9e5c052c3f7af89e993f59898f5dfa5b3",
+        "positions": "d735dfd95009e3a7a27c665c004e298a9a60f64bffc9f13fb27eb18ba5369437",
+        "image": "1ee9886753ef1f4a4000c4bd4012176bba1924e96342de94cb724ed88c11cc1e",
+        "scalefactors": "20e23b0320631abf2abf621300fe27e7bc048333066fa42e21cc3903d06ad607",
+        "labels": "dec67b41baa0cec2e3d1889b81a425f7932cd7f7e16113852be1648a560159c2"
+      }
+    },
+    {
+      "slice": "MB21",
+      "donor": "MB21",
+      "cohort": "control",
+      "files": {
+        "h5": "MB21/filtered_feature_bc_matrix.h5",
+        "positions": "MB21/tissue_positions_list.csv",
+        "image": "MB21/tissue_lowres_image.png",
+        "scalefactors": "MB21/scalefactors_json.json"
+      },
+      "labels": "MB21/labels.csv",
+      "sha256": {
+        "h5": "2bc2de03c3d8059258d3bad29f142a62554d1f1f5a667343a006187e009d7eaa",
+        "positions": "09b6905c60da9855d8a9f3e7a95a1111d66462f6c73e537c34f1f38439db2112",
+        "image": "7515c9093a98bd89bad63453bc905db2520cf585a5d4997375d8a23f3f3efb5e",
+        "scalefactors": "d189dad5b2eef42a878ab7ad721f794f361e813f595443ada9e544eb6beb3500",
+        "labels": "ae0853602d1bfe20d22cb6f91f89185ba357dfa308be98d9368357c1a45e0e70"
+      }
+    },
+    {
+      "slice": "MB18-2",
+      "donor": "MB18-2",
+      "cohort": "control",
+      "files": {
+        "h5": "MB18-2/filtered_feature_bc_matrix.h5",
+        "positions": "MB18-2/tissue_positions_list.csv",
+        "image": "MB18-2/tissue_lowres_image.png",
+        "scalefactors": "MB18-2/scalefactors_json.json"
+      },
+      "labels": "MB18-2/labels.csv",
+      "sha256": {
+        "h5": "3b603859cf4014db1b04aa1d2cd3cd845ec60abee7a1bd6521352607a5f6f8a9",
+        "positions": "ae9eec151d7fccf091c86a31a72f26ddb7f0e030ca9f193c14db5efcb6af6efc",
+        "image": "02650be75e3e903b39906f7ba8d6a783dac9e532688f11771f1bb41c84664a4b",
+        "scalefactors": "e7b528c34a3283021af4c523172e8795871be40bd2d0912d04f0cbd13b02739f",
+        "labels": "4c4917c6bcf365ff3d3d50a358e4832e34680fd5172b98625247dc5dac60caa0"
+      }
+    },
+    {
+      "slice": "MB6",
+      "donor": "MB6",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB6/filtered_feature_bc_matrix.h5",
+        "positions": "MB6/tissue_positions_list.csv",
+        "image": "MB6/tissue_lowres_image.png",
+        "scalefactors": "MB6/scalefactors_json.json"
+      },
+      "labels": "MB6/labels.csv",
+      "sha256": {
+        "h5": "9ae7b3ec6742837668a95067199715840beb7271ca3a3ac1f8df21d0437dd73c",
+        "positions": "d42c5e90c672a4db1b22ccf9f3ce776a4d5af06ff3f00a56b2cb85c5d0802a82",
+        "image": "cd880e84a97a4fdc90531478351799fd4807f3e538aadd9da0e237e765b5ea59",
+        "scalefactors": "a120f2d176a7bb1b49d8c83edae8abc9d241b8dbd1b679c483f1b4ab56ddadb7",
+        "labels": "0d7be261f010c3628215498c9ce908e139f7bb4e99d843681e0272d70c850eb5"
+      }
+    },
+    {
+      "slice": "MB12",
+      "donor": "MB12",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB12/filtered_feature_bc_matrix.h5",
+        "positions": "MB12/tissue_positions_list.csv",
+        "image": "MB12/tissue_lowres_image.png",
+        "scalefactors": "MB12/scalefactors_json.json"
+      },
+      "labels": "MB12/labels.csv",
+      "sha256": {
+        "h5": "1a5f018206de425235c554c2a2b2f86d9372cc59bbf04812058c7fed712a39df",
+        "positions": "76b71d067c740d1d9f6117e1744556eaa46afd428dd3f525aeb8243440f7a78a",
+        "image": "d69266eb58573f8353f25226fa252edc26086fbedad25b2189bb11c3011e96e5",
+        "scalefactors": "979cb6b370035c3aad8b5b158f9b9d4c9f320875c7b4d6d1a69dbde2543cf732",
+        "labels": "9d7ccbebe5da0cc521482c3c6b087d399367736d22d7064d6e4fd643edbf0095"
+      }
+    },
+    {
+      "slice": "MB14",
+      "donor": "MB14",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB14/filtered_feature_bc_matrix.h5",
+        "positions": "MB14/tissue_positions_list.csv",
+        "image": "MB14/tissue_lowres_image.png",
+        "scalefactors": "MB14/scalefactors_json.json"
+      },
+      "labels": "MB14/labels.csv",
+      "sha256": {
+        "h5": "7428d926bfba74c20e76914048c67df2d52d9e92324cb384ae724851e4fa3054",
+        "positions": "4bc147edc7b324f03a51063c7a412591c243cb7968312e0e68bf5d15aaafd54a",
+        "image": "ab056a9ae5c104a317c363eda33bf1de951641066446ac044b98edd1c2630ce1",
+        "scalefactors": "06409e667100cb3f09f0e7c0d6fcee2884e2a0686cbe90269d9400d439ac7a22",
+        "labels": "37eb87c118f8b7c63109821fd04e78f5d4d959a4805ed73ab86195ebface1f5f"
+      }
+    },
+    {
+      "slice": "MB22",
+      "donor": "MB22",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB22/filtered_feature_bc_matrix.h5",
+        "positions": "MB22/tissue_positions_list.csv",
+        "image": "MB22/tissue_lowres_image.png",
+        "scalefactors": "MB22/scalefactors_json.json"
+      },
+      "labels": "MB22/labels.csv",
+      "sha256": {
+        "h5": "d4d93d26c650216efb1e03cca062f561c16e762f4e40736a044930f00de9a277",
+        "positions": "cf8653f84fc0ec73fb3426086508d4fa1b763dcc8ac9d77b54e338953d3345ce",
+        "image": "f6e662119e7b74b411aa76d7731c2ced395f662075f40c5f040d3fcf0d923fb1",
+        "scalefactors": "57ea357fe72d2f2860e66f3d8dec692b081682306a12cc13b91270c1b2cfcc62",
+        "labels": "68749c8c80c96a412d6987e9c0babbce96a8e0f6fcbc77bc541fdeda473f32b4"
+      }
+    },
+    {
+      "slice": "MB23",
+      "donor": "MB23",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB23/filtered_feature_bc_matrix.h5",
+        "positions": "MB23/tissue_positions_list.csv",
+        "image": "MB23/tissue_lowres_image.png",
+        "scalefactors": "MB23/scalefactors_json.json"
+      },
+      "labels": "MB23/labels.csv",
+      "sha256": {
+        "h5": "58682f3df2db5247d91a99f75eb7d15cbd9ed355d65663e6489a6121c24bea2a",
+        "positions": "add992ba7db81f57286d8bd928a82314e66a7868603a61d177a393dd95e70128",
+        "image": "2238d41baf812c0704b48ba3b6dc2560b34858ba282e7bfd2db3b4f724ce32d9",
+        "scalefactors": "1482edb14c704c4b03fa039feb8e6fdd25b4ec3775933578163cd3266cf46d51",
+        "labels": "89b4e1bd16caa509813ab16c9767b449e7b84274e7faac8732add2f026c9c9b4"
+      }
+    },
+    {
+      "slice": "MB50",
+      "donor": "MB50",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB50/filtered_feature_bc_matrix.h5",
+        "positions": "MB50/tissue_positions_list.csv",
+        "image": "MB50/tissue_lowres_image.png",
+        "scalefactors": "MB50/scalefactors_json.json"
+      },
+      "labels": "MB50/labels.csv",
+      "sha256": {
+        "h5": "131878979f5c53bd4d38f3e6b1ddf4e5bab1c0a722400873f4d9eb866c9a34d4",
+        "positions": "7940a49b5b9b1b78d0088723d4682dd2de2102020cdfe7f63bdcc7eeee37bc72",
+        "image": "f4192d88ee8ae1c1c45aedc1c059f484dad229e69e898cda36f1cda2d06f1662",
+        "scalefactors": "a727cf2cf293a963eb0c009bc0941e8f21411be5be01d431bf166e4ea6f6964d",
+        "labels": "f99b6ad55a403d56986154f576cbcc1079b0d102b65c6b5cc137d48e3fa2016a"
+      }
+    },
+    {
+      "slice": "MB52",
+      "donor": "MB52",
+      "cohort": "schizophrenia",
+      "files": {
+        "h5": "MB52/filtered_feature_bc_matrix.h5",
+        "positions": "MB52/tissue_positions_list.csv",
+        "image": "MB52/tissue_lowres_image.png",
+        "scalefactors": "MB52/scalefactors_json.json"
+      },
+      "labels": "MB52/labels.csv",
+      "sha256": {
+        "h5": "28ca43844f934cef5452bc8828eb2c656f3173f8bae78bcfcd52a871b378c65e",
+        "positions": "3e65efdbc630f6f209dd1e84c51ea331eef4cde6deefed455101d5d8a6d4c5ea",
+        "image": "adea14295d03206552e6aa5532f6443779154d182a206f28ccbe3cb70f8cd692",
+        "scalefactors": "5f7fd78c22d0655f2fd0baec8fdd20c5873855317986cac568054fffa2d24151",
+        "labels": "eff0048d80c80a80ca25b56786db75ec31c022a1376189233c02ec24e45021c4"
+      }
+    }
+  ]
+}

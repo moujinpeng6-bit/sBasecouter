@@ -64,6 +64,8 @@ v0.2 可对细胞级切片计算邻居图、细胞类型比例、邻居表达和
 
 同一张心脏切片的原生 8 µm 和 16 µm 也已分别核对完整过滤计数、条码、坐标、比例和低分辨率组织图像，并生成可逐项核对的空间表达层。两个分辨率共用同一张发布的切片图像，各自使用对应的坐标表。[8 µm、16 µm 与 FASTQ 验收](examples/heart_native_bins_acceptance.json) · [Linux 重计数准备](docs/heart_linux_recount.md)
 
+Windows 验收记录包含心脏 H&E 与参考库核查、从公开搜索生成 Visium HD 原始输入清单，以及 14 张人脑 Visium 切片的邻居表达对照。[复现方法与结果](docs/windows_validation.md)
+
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```

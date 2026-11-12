@@ -1,0 +1,289 @@
+{
+  "source": "https://zenodo.org/records/6921620",
+  "label_source": "https://github.com/khodosevichlab/Schizophrenia20/blob/main/Notebook6_Visium.md#L537-L538",
+  "design": "leave one donor out; top 512 training-only variable genes; diagonal centroid classifier; mean across donors",
+  "neighbors": {
+    "maximum": 8,
+    "radius_um": 150,
+    "fraction": 0.25
+  },
+  "shared_genes": 60617,
+  "slices": 14,
+  "folds": [
+    {
+      "donor": "MB11",
+      "cohort": "control",
+      "spots": 1219,
+      "self": {
+        "accuracy": 0.3388022969647252,
+        "macro_f1": 0.38923374761433865
+      },
+      "with_neighbors": {
+        "accuracy": 0.34864643150123054,
+        "macro_f1": 0.3623335159635576
+      }
+    },
+    {
+      "donor": "MB12",
+      "cohort": "schizophrenia",
+      "spots": 292,
+      "self": {
+        "accuracy": 0.13356164383561644,
+        "macro_f1": 0.0733531784665836
+      },
+      "with_neighbors": {
+        "accuracy": 0.1917808219178082,
+        "macro_f1": 0.08503321846842947
+      }
+    },
+    {
+      "donor": "MB14",
+      "cohort": "schizophrenia",
+      "spots": 1301,
+      "self": {
+        "accuracy": 0.39584934665641813,
+        "macro_f1": 0.29599979356997685
+      },
+      "with_neighbors": {
+        "accuracy": 0.528055342044581,
+        "macro_f1": 0.3691662282303693
+      }
+    },
+    {
+      "donor": "MB15",
+      "cohort": "control",
+      "spots": 506,
+      "self": {
+        "accuracy": 0.1976284584980237,
+        "macro_f1": 0.22409051630052854
+      },
+      "with_neighbors": {
+        "accuracy": 0.3458498023715415,
+        "macro_f1": 0.3427941096071035
+      }
+    },
+    {
+      "donor": "MB18-2",
+      "cohort": "control",
+      "spots": 916,
+      "self": {
+        "accuracy": 0.21397379912663755,
+        "macro_f1": 0.3004805663423332
+      },
+      "with_neighbors": {
+        "accuracy": 0.3482532751091703,
+        "macro_f1": 0.3418045287511599
+      }
+    },
+    {
+      "donor": "MB19",
+      "cohort": "control",
+      "spots": 659,
+      "self": {
+        "accuracy": 0.15326251896813353,
+        "macro_f1": 0.23118096394251078
+      },
+      "with_neighbors": {
+        "accuracy": 0.13050075872534142,
+        "macro_f1": 0.21595089373660037
+      }
+    },
+    {
+      "donor": "MB21",
+      "cohort": "control",
+      "spots": 2933,
+      "self": {
+        "accuracy": 0.36515513126491644,
+        "macro_f1": 0.31400775487379096
+      },
+      "with_neighbors": {
+        "accuracy": 0.44561882032049094,
+        "macro_f1": 0.35141984808041604
+      }
+    },
+    {
+      "donor": "MB22",
+      "cohort": "schizophrenia",
+      "spots": 355,
+      "self": {
+        "accuracy": 0.19436619718309858,
+        "macro_f1": 0.21863754154917375
+      },
+      "with_neighbors": {
+        "accuracy": 0.3267605633802817,
+        "macro_f1": 0.31023137347210544
+      }
+    },
+    {
+      "donor": "MB23",
+      "cohort": "schizophrenia",
+      "spots": 1250,
+      "self": {
+        "accuracy": 0.2272,
+        "macro_f1": 0.21394648504830674
+      },
+      "with_neighbors": {
+        "accuracy": 0.3776,
+        "macro_f1": 0.29817571642208013
+      }
+    },
+    {
+      "donor": "MB50",
+      "cohort": "schizophrenia",
+      "spots": 2857,
+      "self": {
+        "accuracy": 0.2702135106755338,
+        "macro_f1": 0.2560285916335297
+      },
+      "with_neighbors": {
+        "accuracy": 0.29541477073853695,
+        "macro_f1": 0.26021376165633153
+      }
+    },
+    {
+      "donor": "MB52",
+      "cohort": "schizophrenia",
+      "spots": 4224,
+      "self": {
+        "accuracy": 0.38920454545454547,
+        "macro_f1": 0.36740340406217564
+      },
+      "with_neighbors": {
+        "accuracy": 0.4756155303030303,
+        "macro_f1": 0.43816538057439813
+      }
+    },
+    {
+      "donor": "MB6",
+      "cohort": "schizophrenia",
+      "spots": 2633,
+      "self": {
+        "accuracy": 0.4914546145081656,
+        "macro_f1": 0.3253642126286261
+      },
+      "with_neighbors": {
+        "accuracy": 0.5066464109380935,
+        "macro_f1": 0.3468945400676114
+      }
+    },
+    {
+      "donor": "MB7",
+      "cohort": "control",
+      "spots": 1154,
+      "self": {
+        "accuracy": 0.24090121317157712,
+        "macro_f1": 0.281012297166173
+      },
+      "with_neighbors": {
+        "accuracy": 0.3847487001733102,
+        "macro_f1": 0.39755337086465403
+      }
+    },
+    {
+      "donor": "MB9",
+      "cohort": "control",
+      "spots": 378,
+      "self": {
+        "accuracy": 0.3888888888888889,
+        "macro_f1": 0.4698776812405663
+      },
+      "with_neighbors": {
+        "accuracy": 0.5238095238095238,
+        "macro_f1": 0.5669896624802394
+      }
+    }
+  ],
+  "mean": {
+    "all": {
+      "self": {
+        "accuracy": 0.2857472975140201,
+        "macro_f1": 0.28290119531704383
+      },
+      "with_neighbors": {
+        "accuracy": 0.3735214822380672,
+        "macro_f1": 0.33476615345536115
+      },
+      "donors_with_improved_macro_f1": 12
+    },
+    "control": {
+      "self": {
+        "accuracy": 0.27123032955470033,
+        "macro_f1": 0.31569764678289164
+      },
+      "with_neighbors": {
+        "accuracy": 0.36106104457294413,
+        "macro_f1": 0.36840656135481875
+      },
+      "donors_with_improved_macro_f1": 5
+    },
+    "schizophrenia": {
+      "self": {
+        "accuracy": 0.30026426547333973,
+        "macro_f1": 0.250104743851196
+      },
+      "with_neighbors": {
+        "accuracy": 0.3859819199031902,
+        "macro_f1": 0.30112574555590366
+      },
+      "donors_with_improved_macro_f1": 7
+    }
+  },
+  "annotation_coverage": {
+    "MB7": {
+      "annotations_supplied": 1154,
+      "annotations_scored": 1154
+    },
+    "MB9": {
+      "annotations_supplied": 378,
+      "annotations_scored": 378
+    },
+    "MB11": {
+      "annotations_supplied": 1219,
+      "annotations_scored": 1219
+    },
+    "MB15": {
+      "annotations_supplied": 506,
+      "annotations_scored": 506
+    },
+    "MB19": {
+      "annotations_supplied": 659,
+      "annotations_scored": 659
+    },
+    "MB21": {
+      "annotations_supplied": 2933,
+      "annotations_scored": 2933
+    },
+    "MB18-2": {
+      "annotations_supplied": 916,
+      "annotations_scored": 916
+    },
+    "MB6": {
+      "annotations_supplied": 2633,
+      "annotations_scored": 2633
+    },
+    "MB12": {
+      "annotations_supplied": 292,
+      "annotations_scored": 292
+    },
+    "MB14": {
+      "annotations_supplied": 1301,
+      "annotations_scored": 1301
+    },
+    "MB22": {
+      "annotations_supplied": 355,
+      "annotations_scored": 355
+    },
+    "MB23": {
+      "annotations_supplied": 1250,
+      "annotations_scored": 1250
+    },
+    "MB50": {
+      "annotations_supplied": 2857,
+      "annotations_scored": 2857
+    },
+    "MB52": {
+      "annotations_supplied": 4224,
+      "annotations_scored": 4224
+    }
+  }
+}
